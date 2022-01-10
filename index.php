@@ -1,24 +1,18 @@
 <!-- import class User -->
-<?php require_once __DIR__ . '/classes/User.php'?>
-<?php require_once __DIR__ . '/classes/Product.php'?>
-<?php require_once __DIR__ . '/classes/subProducts/Wear.php'?>
-
-
-<!-- first instance of User -->
 <?php 
-$user1 = new  User('Piccolo', 'Zino', 65);
+    require_once __DIR__ . '/classes/User.php';
+    require_once __DIR__ . '/classes/subUser/Premium_user.php';
 ?>
 
-<!-- first instance of Product -->
+<!-- instances of users -->
 <?php 
-$product1 = new Product('T-Shirt', 15);
-$product1->setScount($user1->getScount())
+$user1 = new  User('Ciccio', 'Pasticcio', 65);
+$user2 = new User('Carolina', 'La Mucca', 40);
+$premium_user1 = new Premium_user('Maurizio', 'Natalizio', 30)
 ?>
 
-<?php 
-$product_wear1 = new Wear('Shirt', 25, 'top-wear');
-$product_wear1->setScount($user1->getScount())
-?>
+<?php require_once __DIR__ . '/instances/productsWear.php' ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,6 +25,7 @@ $product_wear1->setScount($user1->getScount())
 <body>
     <div class="container">
         <h1 class="m-1">SHOP ONLINE</h1>
+        <!-- USER STANDARD -->
         <div class="user m-1">
             <h2>Hi <?php echo $user1->getFullName()?></h2>
             <?php if($user1->getAge() >= 65) {?>
@@ -40,33 +35,57 @@ $product_wear1->setScount($user1->getScount())
             <?php } ?>
         </div>
     
-        <div class="products m-1">
+        <div class="products m-2">
             <h2 class="m-1">On sale</h2>
             <ul>
-                <li class="m-1">
-                    <h3 class="prduct-name"><?php echo $product1->getName()?></h3>
-                    <h5>Product code: #<?php echo $product1->getCode()?></h5>
+                <?php for($i = 0; $i < count($wear_products); $i++) { ?>
+                    <li class="m-1">
+                    <h3 class="prduct-name"><?php echo $wear_products[$i]->getName()?></h3>
+                    <h5>Product code: #<?php echo $wear_products[$i]->getCode()?></h5>
+                    <h5>Type: <?php echo $wear_products[$i]->getType() ?></h5>
                     <span>Price: 
-                        <del><?php if($product1->getFullPrice() != $product1->getPrice()) {
-                            echo $product1->getFullPrice() . '$';
+                        <del><?php if($wear_products[$i]->getFullPrice() != $wear_products[$i]->getPrice()) {
+                            echo $wear_products[$i]->getFullPrice() . '$';
                             }?>
                         </del>
-                        <?php echo $product1->getPrice() . '$'?>
+                        <?php echo $wear_products[$i]->getPrice() . '$'?>
                     </span>
+                    <h5>Available sizes: <?php echo $wear_products[$i]->getSizes() . '.'?> </h5>
+                    <h5>Available colors: <?php echo $wear_products[$i]->getColors() . '.'?></h5>
                 </li>
-                <li>
-                    <h3 class="product-name"><?php echo $product_wear1->getName()?></h3>
-                    <h5>Product code: #<?php echo $product_wear1->getCode()?></h5>
-                    <h5>Type: <?php echo $product_wear1->getType() ?></h5>
+                <?php } ?>
+            </ul>
+        </div>
+
+
+        <!-- USER PREMIUM -->
+
+        <div class="user m-1">
+            <h2>Hi <?php echo $premium_user1->getFullName()?></h2>
+            <div class="scount">
+                Congrats! As a Premium Client you have <?php echo $premium_user1->getScount() . '%'?> of scount
+            </div>
+        </div>
+    
+        <div class="products m-2">
+            <h2 class="m-1">On sale</h2>
+            <ul>
+                <?php for($i = 0; $i < count($wear_products_premium); $i++) { ?>
+                    <li class="m-1">
+                    <h3 class="prduct-name"><?php echo $wear_products_premium[$i]->getName()?></h3>
+                    <h5>Product code: #<?php echo $wear_products_premium[$i]->getCode()?></h5>
+                    <h5>Type: <?php echo $wear_products_premium[$i]->getType() ?></h5>
                     <span>Price: 
-                        <del><?php if($product_wear1->getFullPrice() != $product_wear1->getPrice()) {
-                            echo $product_wear1->getFullPrice() . '$';
+                        <del><?php if($wear_products_premium[$i]->getFullPrice() != $wear_products_premium[$i]->getPrice()) {
+                            echo $wear_products_premium[$i]->getFullPrice() . '$';
                             }?>
                         </del>
-                        <?php echo $product_wear1->getPrice() . '$'?>
+                        <?php echo $wear_products_premium[$i]->getPrice() . '$'?>
                     </span>
-                    <h5>Available sizes: <?php echo $product_wear1->getSizes() . '.'?> </h5>
+                    <h5>Available sizes: <?php echo $wear_products_premium[$i]->getSizes() . '.'?> </h5>
+                    <h5>Available colors: <?php echo $wear_products_premium[$i]->getColors() . '.'?></h5>
                 </li>
+                <?php } ?>
             </ul>
         </div>
     </div>

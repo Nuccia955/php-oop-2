@@ -24,10 +24,10 @@ class User {
     public function getAge() {
         return $this->age;
     }
-    
+
     protected function setScount() {
         if($this->age >= 65) {
-            $this->scount = 15;
+            $this->scount = 5;
         } else {
             $this->scount = 0;
         }
