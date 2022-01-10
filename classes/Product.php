@@ -5,6 +5,7 @@ class Product {
     protected $name;
     protected $code;
     protected $price;
+    protected $scountedPrice;
 
     //Constructor
     public function __construct($name, $price) {
@@ -18,6 +19,14 @@ class Product {
         return rand(1,100000);
     }
 
+    public function setScount($scount) {
+        if($scount != 0) {
+            $this->scountedPrice = $this->price - $this->price * $scount / 100;
+        } else {
+            $this->scountedPrice = $this->price;
+        }
+    }
+
     public function getCode() {
         return $this->code;
     }
@@ -25,7 +34,11 @@ class Product {
         return $this->name;
     }
 
+    public function getFullPrice() {
+        return number_format($this->price, 2);
+    }
+
     public function getPrice() {
-        return $this->price;
+        return number_format($this->scountedPrice, 2);
     }
 }

@@ -9,7 +9,8 @@ $user1 = new  User('Ciccio', 'Pasticcio', 65);
 
 <!-- first instance of Product -->
 <?php 
-$product1 = new Product('T-Shirt', 15)
+$product1 = new Product('T-Shirt', 15);
+$product1->setScount($user1->getScount())
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,9 +26,11 @@ $product1 = new Product('T-Shirt', 15)
         <h1 class="m-1">SHOP ONLINE</h1>
         <div class="user m-1">
             <h2>Hi <?php echo $user1->getFullName()?></h2>
+            <?php if($user1->getAge() >= 65) {?>
             <div class="scount">
-                Congrats! As a Senior Client you have <?php echo $user1->getScount()?> of scount
+                Congrats! As a Senior Client you have <?php echo $user1->getScount() . '%'?> of scount
             </div>
+            <?php } ?>
         </div>
     
         <div class="products m-1">
@@ -36,7 +39,13 @@ $product1 = new Product('T-Shirt', 15)
                 <li>
                     <h3 class="prduct-name"><?php echo $product1->getName()?></h3>
                     <h5>Product code: #<?php echo $product1->getCode()?></h5>
-                    <span>Price <?php echo $product1->getPrice()?>$</span>
+                    <span>Price: 
+                        <del><?php if($product1->getFullPrice() != $product1->getPrice()) {
+                            echo $product1->getFullPrice() . '$';
+                            }?>
+                        </del>
+                        <?php echo $product1->getPrice() . '$'?>
+                    </span>
                 </li>
             </ul>
         </div>

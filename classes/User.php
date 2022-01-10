@@ -13,19 +13,26 @@ class User {
         $this->first_name = $first_name;
         $this->last_name = $last_name;
         $this->age = $age;
+        $this->setScount();
     }
 
     //Methods
     public function getFullName() {
         return $this->first_name . ' ' . $this->last_name;
     }
+
+    public function getAge() {
+        return $this->age;
+    }
+    
     protected function setScount() {
         if($this->age >= 65) {
             $this->scount = 15;
+        } else {
+            $this->scount = 0;
         }
     }
     public function getScount() {
-        $this->setScount();
-        return $this->scount . '%';
+        return $this->scount;
     }
 }
