@@ -1,16 +1,23 @@
 <!-- import class User -->
 <?php require_once __DIR__ . '/classes/User.php'?>
 <?php require_once __DIR__ . '/classes/Product.php'?>
+<?php require_once __DIR__ . '/classes/subProducts/Wear.php'?>
+
 
 <!-- first instance of User -->
 <?php 
-$user1 = new  User('Ciccio', 'Pasticcio', 65);
+$user1 = new  User('Piccolo', 'Zino', 65);
 ?>
 
 <!-- first instance of Product -->
 <?php 
 $product1 = new Product('T-Shirt', 15);
 $product1->setScount($user1->getScount())
+?>
+
+<?php 
+$product_wear1 = new Wear('Shirt', 25, 'top-wear');
+$product_wear1->setScount($user1->getScount())
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +43,7 @@ $product1->setScount($user1->getScount())
         <div class="products m-1">
             <h2 class="m-1">On sale</h2>
             <ul>
-                <li>
+                <li class="m-1">
                     <h3 class="prduct-name"><?php echo $product1->getName()?></h3>
                     <h5>Product code: #<?php echo $product1->getCode()?></h5>
                     <span>Price: 
@@ -46,6 +53,19 @@ $product1->setScount($user1->getScount())
                         </del>
                         <?php echo $product1->getPrice() . '$'?>
                     </span>
+                </li>
+                <li>
+                    <h3 class="product-name"><?php echo $product_wear1->getName()?></h3>
+                    <h5>Product code: #<?php echo $product_wear1->getCode()?></h5>
+                    <h5>Type: <?php echo $product_wear1->getType() ?></h5>
+                    <span>Price: 
+                        <del><?php if($product_wear1->getFullPrice() != $product_wear1->getPrice()) {
+                            echo $product_wear1->getFullPrice() . '$';
+                            }?>
+                        </del>
+                        <?php echo $product_wear1->getPrice() . '$'?>
+                    </span>
+                    <h5>Available sizes: <?php echo $product_wear1->getSizes() . '.'?> </h5>
                 </li>
             </ul>
         </div>
