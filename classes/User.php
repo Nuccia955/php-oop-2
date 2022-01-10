@@ -28,5 +28,4 @@ class User {
         $this->setScount();
         return $this->scount . '%';
     }
-
 }
